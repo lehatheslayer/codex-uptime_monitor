@@ -1,23 +1,35 @@
 package so.codex.monitor.controllers;
 
-import org.springframework.stereotype.Controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import org.xml.sax.SAXException;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
+import so.codex.monitor.service.impl.StatusServiceImpl;
 
-@Controller
+@RestController
 public class StatusController {
-    private final RequestSender requestSender = new RequestSender();
+    private final ObjectMapper objectMapper = new ObjectMapper() {{
+        enable(SerializationFeature.INDENT_OUTPUT);
+    }};
 
-    public StatusController() throws ParserConfigurationException, SAXException, IOException {
-    }
+    @Autowired
+    private StatusServiceImpl statusService;
 
-    @GetMapping("/")
-    public String status(Model model) {
-        return "status";
+    @GetMapping("/getPoints")
+    public Map<String, String> status(Model model) throws JsonProcessingException {
+        final var it = statusService.getAll();
+        return new HashMap<>() {{
+            put("result", objectMapper.writeValueAsString(it));
+        }};
     }
 }
+
+

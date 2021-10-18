@@ -1,4 +1,4 @@
-package so.codex.monitor;
+package so.codex.monitor.service.monitor.task;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +11,7 @@ public class ApplicationContextProvider implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        context=applicationContext;
+        context = applicationContext;
     }
 
     public static <T> T getBean(String name,Class<T> aClass){

@@ -1,4 +1,4 @@
-package so.codex.monitor.repo;
+package so.codex.monitor.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
