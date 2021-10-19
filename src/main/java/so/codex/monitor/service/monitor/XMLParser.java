@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * XML парсер. Парсит адреса сайтов в поле URLS
+ * XML парсер. Парсит адреса сайтов в поле urls.
+ * Парсит вебхук телеграм бота CodeX Bot в поле webHook
  */
 public class XMLParser {
     /**
@@ -22,24 +23,36 @@ public class XMLParser {
     /**
      * Тэг, в котором хранятся адреса сайтов
      */
-    private final static String TAG = "url";
+    private final static String ADDRESSES_TAG = "url";
+
+    /**
+     * Тэг, в котором хранится вебхук от телеграм бота
+     */
+    private final static String WEBHOOK_TAG = "webhook";
 
     /**
      * Список, куда будут сохранены все адреса
      */
-    private final static List<String> URLS = new ArrayList<>();
+    private static final List<String> urls = new ArrayList<>();
+
+    /**
+     * Тут хранится вебхук телеграм бота
+     */
+    private static String webHook;
 
     /**
      * Метод считывает адреса сайтов из PATH и тэга TAG в URLS
      */
     private static void parse() {
         try {
-            Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(PATH);
-            final NodeList tmpAddresses = document.getElementsByTagName(TAG);
+            final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(PATH);
+            final NodeList addressesNodeList = document.getElementsByTagName(ADDRESSES_TAG);
 
-            for (int i = 0; i < tmpAddresses.getLength(); i++) {
-                URLS.add(tmpAddresses.item(i).getTextContent());
+            for (int i = 0; i < addressesNodeList.getLength(); i++) {
+                urls.add(addressesNodeList.item(i).getTextContent());
             }
+
+            webHook = document.getElementsByTagName(WEBHOOK_TAG).item(0).getTextContent();
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
         }
@@ -52,10 +65,18 @@ public class XMLParser {
      * @return список адресов сайтов
      */
     public static List<String> getUrls() {
-        if (URLS.size() == 0) {
+        if (urls.size() == 0) {
             parse();
         }
 
-        return URLS;
+        return urls;
+    }
+
+    public static String getWebHook() {
+        if (webHook == null) {
+            parse();
+        }
+
+        return webHook;
     }
 }
