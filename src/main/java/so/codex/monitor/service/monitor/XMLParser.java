@@ -26,19 +26,9 @@ public class XMLParser {
     private final static String ADDRESSES_TAG = "url";
 
     /**
-     * Тэг, в котором хранится вебхук от телеграм бота
-     */
-    private final static String WEBHOOK_TAG = "webhook";
-
-    /**
      * Список, куда будут сохранены все адреса
      */
     private static final List<String> urls = new ArrayList<>();
-
-    /**
-     * Тут хранится вебхук телеграм бота
-     */
-    private static String webHook;
 
     /**
      * Метод считывает адреса сайтов из PATH и тэга TAG в URLS
@@ -51,8 +41,6 @@ public class XMLParser {
             for (int i = 0; i < addressesNodeList.getLength(); i++) {
                 urls.add(addressesNodeList.item(i).getTextContent());
             }
-
-            webHook = document.getElementsByTagName(WEBHOOK_TAG).item(0).getTextContent();
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
         }
@@ -70,13 +58,5 @@ public class XMLParser {
         }
 
         return urls;
-    }
-
-    public static String getWebHook() {
-        if (webHook == null) {
-            parse();
-        }
-
-        return webHook;
     }
 }
