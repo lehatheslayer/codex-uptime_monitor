@@ -25,14 +25,7 @@ spring.datasource.username=*USERNAME*
 spring.datasource.password=*PASSWORD*
 ```
 
-4. В файле [Notifier.java](src/main/java/so/codex/monitor/service/monitor/Notifier.java) вставить свой вебхук 
-[CodeX Bot](https://github.com/codex-bot/notify) для отправки уведомлений в чат
-   
-```
-private static final String WEB_HOOK = *WEB_HOOK*
-```
-
-5. В файле [Addresses.xml](Addresses.xml) вписать адреса, котоыре нужно отслеживать
+4. В файле [Addresses.xml](Addresses.xml) вписать адреса, котоыре нужно отслеживать и вебхук телеграм бота для оповещения
 
 ## Запуск
 
@@ -40,7 +33,13 @@ private static final String WEB_HOOK = *WEB_HOOK*
 mvn spring-boot:run -Dspring-boot.run.arguments="--status=running"
 ```
 
-## Результаты
+## Запуск через Docker
 
-На данный момент результаты работы можно посмотреть только в базе данных, куда записываются результаты всех пингов
+```bash
+docker-compose up
+```
+
+Параметры окружения находятся в файле [.env](.env)
+
+
 
