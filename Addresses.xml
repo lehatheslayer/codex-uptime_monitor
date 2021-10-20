@@ -9,6 +9,9 @@
     <Address>
         <url>https://codex.so/</url>
     </Address>
+    <Address>
+        <url>https://google.com/asdasd/</url>
+    </Address>
 
     <CodexBot>
         <webhook>https://notify.bot.codex.so/u/60LVD6GR</webhook>
