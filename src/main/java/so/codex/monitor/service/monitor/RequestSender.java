@@ -17,7 +17,6 @@ import so.codex.monitor.models.Status;
  */
 public class RequestSender {
     private final static String URL_PREFIX = "https://";
-    private final static String URL_SUFFIX = "/";
 
     /**
      * Адреса, которые нужно пропинговать
@@ -62,7 +61,7 @@ public class RequestSender {
             final int requestCode = response.statusCode();
 
             result.add(new Status(
-                        URL_PREFIX + httpRequest.uri().getHost() + URL_SUFFIX,
+                        URL_PREFIX + httpRequest.uri().getHost() + httpRequest.uri().getPath(),
                         requestTime,
                         requestWeight,
                         requestCode));
