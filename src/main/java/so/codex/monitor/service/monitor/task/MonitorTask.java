@@ -3,6 +3,8 @@ package so.codex.monitor.service.monitor.task;
 import lombok.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +29,12 @@ public class MonitorTask extends Thread {
     private static final int EXPECTED_CODE = 200;
     private static final Map<String, Pair> MIDDLE_WEIGHT_AND_TIMEOUT = new HashMap<>();
     private static final int DATA_COLLECTION_ITERATIONS = 50;
+
     public final static long TIME_OUT = 300000L;
+
+    private final ApplicationContext notifierContext = new AnnotationConfigApplicationContext(
+            "so.codex.monitor.service.monitor");
+    private final Notifier notifier = notifierContext.getBean(Notifier.class);
 
     private final RequestSender requestSender = new RequestSender();
 
@@ -100,7 +107,7 @@ public class MonitorTask extends Thread {
      * @param message - текст оповещения
      */
     private void sendAlarm(String message) {
-        Notifier.sendAlert(message);
+        notifier.sendAlert(message);
     }
 
     /**
