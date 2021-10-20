@@ -17,15 +17,17 @@ java --version
 
 2. Установите [MySQL](https://www.mysql.com/downloads/) и создайте базу данных.
 
-3. В файле [application.properties](src/main/resources/application.properties) вставьте свои значения в следуюших строках:
+3. В файле [application.properties](src/main/resources/application.properties) 
+   вставьте свои значения в параметрах базы данных, поменяйте вебхук телеграм бота для оповещения:
 
 ```properties
-spring.datasource.url=jdbc:mysql://${*HOST_NAME*}:3306/*DATABASE_NAME*
-spring.datasource.username=*USERNAME*
-spring.datasource.password=*PASSWORD*
+webhook = *YOUR_WEBHOOK*
+spring.datasource.url=jdbc:mysql://${*DB_HOST_NAME*}:3306/*DATABASE_NAME*
+spring.datasource.username=*DB_USERNAME*
+spring.datasource.password=*DB_PASSWORD*
 ```
 
-4. В файле [Addresses.xml](Addresses.xml) вписать адреса, котоыре нужно отслеживать и вебхук телеграм бота для оповещения
+5. В файле [Addresses.xml](Addresses.xml) вписать адреса, котоыре нужно отслеживать
 
 ## Запуск
 
